@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" class="bg-[#0f172a] text-white">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Todo List - Dadan</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Custom CSS (optional) -->
-  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body class="flex items-center justify-center min-h-screen">
-
   <main class="bg-[#1e293b] p-6 rounded-xl shadow-lg w-full max-w-xl">
     <h1 class="text-2xl font-bold text-center mb-6">Todo List</h1>
 
-    <!-- Form Input -->
+    <!-- Form -->
     <form class="flex flex-col sm:flex-row gap-3 items-center mb-4">
       <input
         type="text"
@@ -35,21 +30,13 @@
         type="button"
         onclick="addTask()"
         class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-xl"
-      >
-        +
-      </button>
+      >+</button>
     </form>
 
     <!-- Action Buttons -->
     <div class="flex justify-between mb-4">
       <button class="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-md">Filter</button>
-      <button
-        type="button"
-        onclick="removeAllTask()"
-        class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md"
-      >
-        Delete All
-      </button>
+      <button onclick="removeAllTask()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md">Delete All</button>
     </div>
 
     <!-- Table Header -->
@@ -66,8 +53,76 @@
     </ul>
   </main>
 
-  <!-- External JavaScript -->
-  <script src="js/script.js"></script>
-</body>
+  <!-- JavaScript Langsung -->
+  <script>
+    console.log("Hello, Dadan!");
 
+    let tasks = [];
+
+    function addTask() {
+      const taskInput = document.getElementById("todo-input");
+      const dateInput = document.getElementById("todo-date");
+
+      if (taskInput.value === "" || dateInput.value === "") {
+        alert("Please enter a task and a due date.");
+      } else {
+        tasks.push({
+          title: taskInput.value,
+          date: dateInput.value,
+          done: false
+        });
+
+        taskInput.value = "";
+        dateInput.value = "";
+        renderTasks();
+      }
+    }
+
+    function removeAllTask() {
+      tasks = [];
+      renderTasks();
+    }
+
+    function toggleTask(index) {
+      tasks[index].done = !tasks[index].done;
+      renderTasks();
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      renderTasks();
+    }
+
+    function renderTasks() {
+      const taskList = document.getElementById("todo-list");
+      taskList.innerHTML = "";
+
+      if (tasks.length === 0) {
+        taskList.innerHTML = `<li class="text-center text-gray-500 col-span-4">No task found</li>`;
+        return;
+      }
+
+      tasks.forEach((task, index) => {
+        taskList.innerHTML += `
+          <li class="grid grid-cols-4 items-center bg-[#0f172a] text-white p-3 rounded-md mb-2 text-sm">
+            <div>${task.title}</div>
+            <div>${task.date}</div>
+            <div>
+              <button onclick="toggleTask(${index})"
+                class="px-2 py-1 rounded ${task.done ? 'bg-green-600' : 'bg-yellow-500'} hover:brightness-110 text-xs">
+                ${task.done ? "Completed" : "Pending"}
+              </button>
+            </div>
+            <div>
+              <button onclick="deleteTask(${index})"
+                class="px-2 py-1 rounded bg-red-600 hover:bg-red-700 text-xs">
+                Delete
+              </button>
+            </div>
+          </li>
+        `;
+      });
+    }
+  </script>
+</body>
 </html>
