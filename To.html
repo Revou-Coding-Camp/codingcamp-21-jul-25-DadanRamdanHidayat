@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[#0f172a] text-white">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo List - Dadan</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS (optional) -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+
+  <main class="bg-[#1e293b] p-6 rounded-xl shadow-lg w-full max-w-xl">
+    <h1 class="text-2xl font-bold text-center mb-6">Todo List</h1>
+
+    <!-- Form Input -->
+    <form class="flex flex-col sm:flex-row gap-3 items-center mb-4">
+      <input
+        type="text"
+        id="todo-input"
+        class="flex-1 px-4 py-2 rounded-md bg-[#0f172a] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Add a todo . . ."
+      />
+      <input
+        type="date"
+        id="todo-date"
+        class="px-4 py-2 rounded-md bg-[#0f172a] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        type="button"
+        onclick="addTask()"
+        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-xl"
+      >
+        +
+      </button>
+    </form>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-between mb-4">
+      <button class="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-md">Filter</button>
+      <button
+        type="button"
+        onclick="removeAllTask()"
+        class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md"
+      >
+        Delete All
+      </button>
+    </div>
+
+    <!-- Table Header -->
+    <div class="grid grid-cols-4 font-semibold border-b border-gray-600 pb-2 mb-2 text-sm text-gray-300">
+      <div>Task</div>
+      <div>Due Date</div>
+      <div>Status</div>
+      <div>Actions</div>
+    </div>
+
+    <!-- Task List -->
+    <ul id="todo-list" class="text-sm space-y-2">
+      <li class="text-center text-gray-500 col-span-4">No task found</li>
+    </ul>
+  </main>
+
+  <!-- External JavaScript -->
+  <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+/* style.css */
+
+/* Tidak perlu atur width dan height di main karena sudah diatur Tailwind */
+
+form {
+    background-color: transparent; /* Biarkan Tailwind yang mengatur warna */
+    padding: 0;
+    border-radius: 0;
+}
+
+.action-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+li {
+    border-bottom: 1px solid #334155; /* slate-700 */
+    padding: 0.5rem 0;
+}
