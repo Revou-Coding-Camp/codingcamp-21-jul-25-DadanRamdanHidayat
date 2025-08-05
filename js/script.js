@@ -7,6 +7,44 @@ function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// Tambahkan di atas script.js Anda
+let currentUser = localStorage.getItem("currentUser") || null;
+
+function login() {
+  const username = document.getElementById("login-username").value;
+  const password = document.getElementById("login-password").value;
+  if (!username || !password) {
+    alert("Isi username dan password!");
+    return;
+  }
+  // Simpan user login (untuk demo, password tidak dicek)
+  localStorage.setItem("currentUser", username);
+  document.getElementById("login-section").style.display = "none";
+  document.querySelector("main").style.display = "block";
+  loadTasks();
+}
+
+function loadTasks() {
+  const username = localStorage.getItem("currentUser");
+  tasks = JSON.parse(localStorage.getItem("tasks_" + username)) || [];
+  renderTasks();
+}
+
+function saveTasks() {
+  const username = localStorage.getItem("currentUser");
+  localStorage.setItem("tasks_" + username, JSON.stringify(tasks));
+}
+
+// Di akhir file, tambahkan:
+if (!currentUser) {
+  document.getElementById("login-section").style.display = "flex";
+  document.querySelector("main").style.display = "none";
+} else {
+  document.getElementById("login-section").style.display = "none";
+  document.querySelector("main").style.display = "block";
+  loadTasks();
+}
+
 function addTask() {
   const taskInput = document.getElementById("todo-input");
   const dateInput = document.getElementById("todo-date");
